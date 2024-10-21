@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public ScoreController scoreController;
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
         private void OnCollisionStay2D( Collision2D other )
     {
         if ( other.transform.tag == "Platform" )
-        {
+        { 
             isGrounded = true;
         }
     }
@@ -116,5 +118,11 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.IncreaseScore(10);
     }
 }
