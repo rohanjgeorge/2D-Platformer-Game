@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public float jump;
 
+    private bool isGrounded = false;
+
+
     public BoxCollider2D boxCol;
 
     private Vector2 boxColInitSize;
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = scale;
 
                 
-                if (vertical > 0 )
+                if (vertical > 0 && isGrounded )
                 {
                     animator.SetBool( "Jump", true);
                 } else {
@@ -94,8 +97,24 @@ public class PlayerController : MonoBehaviour
             transform.position = position;
 
             // move character vertically
-            if(vertical > 0){
+            if(vertical > 0 && isGrounded){
                 rb2d.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
             }
         }
+        
+        private void OnCollisionStay2D( Collision2D other )
+    {
+        if ( other.transform.tag == "Platform" )
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D( Collision2D other )
+    {
+        if ( other.transform.tag == "Platform" )
+        {
+            isGrounded = false;
+        }
+    }
 }
