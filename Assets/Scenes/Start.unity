@@ -1247,6 +1247,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f53f71ba92241145b6e06563d33ea28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
+  groundDetector: {fileID: 2035559719}
+  rayDistance: 3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &2052361399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1728,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6453438622736360131, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453438622736360131, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: 6453438622736360140, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
         type: 3}
       propertyPath: m_RootOrder
@@ -1730,12 +1746,12 @@ PrefabInstance:
     - target: {fileID: 6453438622736360140, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.46
+      value: 6.65
       objectReference: {fileID: 0}
     - target: {fileID: 6453438622736360140, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.48
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6453438622736360140, guid: 99c4a1fa0e5ddae40a8e80fc3313eedd,
         type: 3}
