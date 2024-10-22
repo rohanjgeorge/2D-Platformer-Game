@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6453438622736360142}
   - component: {fileID: 6453438622736360141}
   - component: {fileID: 6198286283671879547}
-  m_Layer: 0
+  - component: {fileID: 2035559723}
+  m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,3 +134,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2035559723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453438622736360131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f53f71ba92241145b6e06563d33ea28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  groundDetector: {fileID: 6453438622736360131}
+  rayDistance: 3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1

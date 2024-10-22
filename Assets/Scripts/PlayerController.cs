@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public ScoreController scoreController;
+    public HeartController heartController;
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
@@ -21,6 +23,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 boxColInitSize;
     private Vector2 boxColInitOffset; 
 
+    public SpriteRenderer[] hearts;
+
+    public bool isDead = false;
+    private int health;
+
     // Start is called before the first frame update
     private void Awake() {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -29,11 +36,15 @@ public class PlayerController : MonoBehaviour
     {
         boxColInitSize = boxCol.size;
         boxColInitOffset = boxCol.offset;
+
+        health = hearts.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead) return;
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -150,13 +161,45 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer()
     {
-        Debug.Log("Player killed by enemy");
-        //Destroy(gameObject);
+        if(!isDead){
+Debug.Log("Player attacked by enemy");
         //Play the death animation
-        ReloadLevel();
+        DecreaseHealth();
+
+        }
     }
 
     private void ReloadLevel(){
         SceneManager.LoadScene(0);
     }
+
+    public void DecreaseHealth( )
+    {
+        health--;
+
+        heartController.RefreshUI(health);
+        if ( health <= 0 )
+        {
+            PlayDeathAnimation( );
+            PlayerDeath( );
+            StartCoroutine(PlayerDeath());
+        }
+    }
+
+    public void PlayDeathAnimation( )
+    {
+        animator.SetTrigger("Death");
+    }
+
+    IEnumerator PlayerDeath( )
+    {
+        isDead = true;
+        rb2d.velocity = Vector2.zero;
+        rb2d.isKinematic = true;
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);  // Wait for the length of the death animation
+
+        ReloadLevel( );
+    }
+
 }
