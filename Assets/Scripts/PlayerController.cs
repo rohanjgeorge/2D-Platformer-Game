@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -100,15 +101,36 @@ public class PlayerController : MonoBehaviour
 
             // move character vertically
             if(vertical > 0 && isGrounded){
-                rb2d.AddForce(new Vector2(0f,jump), ForceMode2D.Force);
+
+                rb2d.AddForce(new Vector2(0f,jump), ForceMode2D.Impulse);
             }
+
+            if (rb2d.velocity.y > 10f)
+    {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 10f);  // Cap the vertical velocity
+    }
         }
         
         private void OnCollisionStay2D( Collision2D other )
     {
         if ( other.transform.tag == "Platform" )
         { 
-            isGrounded = true;
+            if (other.transform.tag == "Platform")
+    {
+        // Loop through all contact points of the collision
+        foreach (ContactPoint2D contact in other.contacts)
+        {
+            // Check if the contact point normal is pointing upwards (i.e., player is on top)
+            if (contact.normal.y > 0.5f)
+            {
+                isGrounded = true;
+                return;  // Exit once we've confirmed it's grounded on the top
+            }
+        }
+        
+        // If none of the contacts are valid for grounding
+        isGrounded = false;
+    }
         }
     }
 
@@ -131,6 +153,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player killed by enemy");
         //Destroy(gameObject);
         //Play the death animation
-        //Reset the scene
+        ReloadLevel();
+    }
+
+    private void ReloadLevel(){
+        SceneManager.LoadScene(0);
     }
 }
