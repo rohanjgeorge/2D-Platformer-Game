@@ -170,9 +170,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ReloadLevel(){
-        SceneManager.LoadScene(0);
-    }
 
     public void DecreaseHealth( )
     {
@@ -192,7 +189,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Death");
     }
 
-    IEnumerator PlayerDeath( )
+    public IEnumerator PlayerDeath( )
     {
         isDead = true;
         rb2d.velocity = Vector2.zero;
