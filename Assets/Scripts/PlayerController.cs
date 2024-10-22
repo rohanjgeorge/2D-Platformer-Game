@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public ScoreController scoreController;
     public HeartController heartController;
+    public GameOverController gameOverController;
     public float speed;
     private Rigidbody2D rb2d;
     public float jump;
@@ -162,7 +163,7 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         if(!isDead){
-Debug.Log("Player attacked by enemy");
+        Debug.Log("Player attacked by enemy");
         //Play the death animation
         DecreaseHealth();
 
@@ -198,8 +199,7 @@ Debug.Log("Player attacked by enemy");
         rb2d.isKinematic = true;
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);  // Wait for the length of the death animation
-
-        ReloadLevel( );
+        gameOverController.PlayerDied();
     }
 
 }
