@@ -9,15 +9,23 @@ using UnityEngine.UI;
 public class LobbyController : MonoBehaviour
 {
 
-    public Button buttonPlay;
+    [SerializeField] private Button buttonPlay;
+    [SerializeField] private Button buttonQuit;
     // Start is called before the first frame update
     private void Awake() {
         
         buttonPlay.onClick.AddListener(PlayGame);
+        buttonQuit.onClick.AddListener(QuitGame);
     }
 
     private void PlayGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Application quit - won't close the editor");
     }
 }

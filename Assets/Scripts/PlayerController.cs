@@ -197,6 +197,7 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);  // Wait for the length of the death animation
         gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
 }
