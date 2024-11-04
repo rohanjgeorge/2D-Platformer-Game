@@ -11,6 +11,8 @@ public class LobbyController : MonoBehaviour
 
     [SerializeField] private Button buttonPlay;
     [SerializeField] private Button buttonQuit;
+
+    [SerializeField] private GameObject LevelSelection;
     // Start is called before the first frame update
     private void Awake() {
         
@@ -20,7 +22,7 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        LevelSelection.SetActive(true);
     }
 
     private void QuitGame()
